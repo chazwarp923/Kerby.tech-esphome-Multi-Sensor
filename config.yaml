@@ -141,7 +141,9 @@ display:
       ignore_strapping_warning: true
     dc_pin: GPIO3
     reset_pin: GPIO2
-    dimensions: 172x320
+    dimensions:
+      height: 320
+      width: 172
       offset_width: 34
     rotation: 0
     lambda: |-
