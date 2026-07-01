@@ -145,6 +145,7 @@ display:
       height: 320
       width: 172
       offset_width: 34
+    color_order: rgb
     rotation: 0
     lambda: |-
       it.printf(0, 0, id(roboto_icons), Color(0xFF0000), COLOR_OFF, display::TextAlign::TOP_LEFT, "🌡");
