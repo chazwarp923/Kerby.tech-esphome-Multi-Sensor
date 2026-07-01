@@ -1,0 +1,158 @@
+esphome:
+  name: "master-bedroom-multi-sensor"
+  friendly_name: Master Bedroom Multi-Sensor
+
+  project:
+    name: "Kerby-Tech.Multi-Sensor"
+    version: "1.0.0"
+
+  on_boot:
+    priority: 1000
+    then:
+    - light.turn_on: RGB_LED
+
+esp32:
+  variant: esp32c6
+  flash_size: 4MB
+  framework: 
+    type: esp-idf
+
+logger:
+
+network:
+  enable_ipv6: true
+
+#openthread:
+  #device_type: FTD
+  #tlv: !secret thread_tlv
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  min_auth_mode: WPA2
+
+output:
+  - platform: gpio
+    pin: GPIO15
+    id: status_LED
+
+light:
+  - platform: binary
+    name: "Status LED"
+    output: status_LED
+  - platform: esp32_rmt_led_strip
+    chipset: WS2812
+    pin: GPIO8
+    num_leds: 1
+    rgb_order: GRB
+    name: "RGB LED"
+    id: RGB_LED
+
+switch:
+  - platform: restart
+    name: "Reboot Sensor"
+    icon: mdi:power-cycle
+
+i2c:
+  sda: GPIO6
+  scl: GPIO7
+  #scan: True
+  low_power_mode: true
+
+spi:
+  clk_pin: GPIO0
+  mosi_pin: GPIO1
+
+sensor:
+  - platform: sen6x
+    type: SEN66
+    pm_1_0:
+      name: PM 1µm
+      state_class: "measurement"
+      unit_of_measurement: "μg/m³"
+      id: pm_1_0
+    pm_2_5:
+      name: PM 2.5µm
+      state_class: "measurement"
+      unit_of_measurement: "μg/m³"
+      id: pm_2_5
+    pm_4_0:
+      name: PM 4µm
+      state_class: "measurement"
+      unit_of_measurement: "μg/m³"
+      id: pm_4_0
+    pm_10_0:
+      name: PM 10µm
+      state_class: "measurement"
+      unit_of_measurement: "μg/m³"
+      id: pm_10_0
+    temperature:
+      name: Temperature
+      state_class: "measurement"
+      id: temperature
+    humidity:
+      name: Humidity
+      state_class: "measurement"
+      id: humidity
+    voc:
+      name: VOC
+      state_class: "measurement"
+      unit_of_measurement: "VOC Index"
+      id: voc
+    nox:
+      name: NOx
+      state_class: "measurement"
+      unit_of_measurement: "NOx Index"
+      id: nox
+    co2:
+      name: Carbon Dioxide
+      state_class: "measurement"
+      unit_of_measurement: "ppm"
+      id: co2
+    update_interval: 60s
+
+font:
+  - file: "gfonts://Roboto"
+    id: roboto_icons
+    size: 40
+    extras:
+      file: "gfonts://Noto+Emoji"
+      glyphs: "🌡💧♨️" 
+  - file: "gfonts://Roboto"
+    id: roboto_time
+    size: 32
+    glyphsets: "GF_Latin_Kernel"
+    glyphs: "₂³μ"
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 128x64"
+    rotation: 180
+    lambda: |-
+      it.strftime(0, 0, id(roboto_time), "%X", id(sntp_time).now());
+    address: 0x3C
+
+  - platform: mipi_spi
+    model: ST7789V
+    enable_pin: GPIO5
+    cs_pin: GPIO4
+    dc_pin: GPIO3
+    reset_pin: GPIO2
+    dimensions: 172x320
+    rotation: 0
+    lambda: |-
+      it.printf(0, 0, id(roboto_icons), Color(0xFF0000), COLOR_OFF, display::TextAlign::TOP_LEFT, "🌡");
+      it.printf(0, 45, id(roboto_icons), Color(0x0000FF), COLOR_OFF, display::TextAlign::TOP_LEFT, "💧");
+      it.printf(0, 95, id(roboto_time), Color(0xFFEB00), COLOR_OFF, display::TextAlign::TOP_LEFT, "CO₂");
+      it.printf(0, 135, id(roboto_icons), Color(0x00FF00), COLOR_OFF, display::TextAlign::TOP_LEFT, "♨️");
+      it.printf(0, 180, id(roboto_time), Color(0xc19a6b), COLOR_OFF, display::TextAlign::TOP_LEFT, "1.0");
+      it.printf(0, 225, id(roboto_time), Color(0xc19a6b), COLOR_OFF, display::TextAlign::TOP_LEFT, "2.5");
+      it.printf(0, 270, id(roboto_time), Color(0xc19a6b), COLOR_OFF, display::TextAlign::TOP_LEFT, "10");
+
+      it.printf(60, 0, id(roboto_icons), "%.0f°F", id(temperature).state * (9.0/5.0) + 32.0);
+      it.printf(60, 45, id(roboto_icons), "%.0f%%", id(humidity).state);
+      it.printf(60, 90, id(roboto_time), "%.0fppm", id(co2).state);
+      it.printf(60, 135, id(roboto_time), "%.0f", id(voc).state);
+      it.printf(60, 180, id(roboto_time), "%.0fμg/m³", id(pm_1_0).state);
+      it.printf(60, 225, id(roboto_time), "%.0fμg/m³", id(pm_2_5).state);
+      it.printf(60, 270, id(roboto_time), "%.0fμg/m³", id(pm_10_0).state);
