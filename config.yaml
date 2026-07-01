@@ -33,7 +33,9 @@ wifi:
 
 output:
   - platform: gpio
-    pin: GPIO15
+    pin: 
+      number: GPIO15
+      ignore_strapping_warning: true
     id: status_LED
 
 light:
@@ -42,7 +44,9 @@ light:
     output: status_LED
   - platform: esp32_rmt_led_strip
     chipset: WS2812
-    pin: GPIO8
+    pin: 
+      number: GPIO8
+      ignore_strapping_warning: true
     num_leds: 1
     rgb_order: GRB
     name: "RGB LED"
@@ -138,8 +142,12 @@ display:
 
   - platform: mipi_spi
     model: ST7789V
-    enable_pin: GPIO5
-    cs_pin: GPIO4
+    enable_pin: 
+      number: GPIO5
+      ignore_strapping_warning: true
+    cs_pin: 
+      number: GPIO4
+      ignore_strapping_warning: true
     dc_pin: GPIO3
     reset_pin: GPIO2
     dimensions: 172x320
