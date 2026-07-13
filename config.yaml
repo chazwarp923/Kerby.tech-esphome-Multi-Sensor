@@ -4,12 +4,7 @@ esphome:
 
   project:
     name: "Kerby-Tech.Multi-Sensor"
-    version: "1.0.2"
-
-  on_boot:
-    priority: 1000
-    then:
-    - light.turn_on: RGB_LED
+    version: "1.0.3"
 
 esp32:
   variant: esp32c6
@@ -21,27 +16,6 @@ logger:
 
 network:
   enable_ipv6: true
-
-output:
-  - platform: gpio
-    pin: 
-      number: GPIO15
-      ignore_strapping_warning: true
-    id: status_LED
-
-light:
-  - platform: binary
-    name: "Status LED"
-    output: status_LED
-  - platform: esp32_rmt_led_strip
-    chipset: WS2812
-    pin: 
-      number: GPIO8
-      ignore_strapping_warning: true
-    num_leds: 1
-    rgb_order: GRB
-    name: "RGB LED"
-    id: RGB_LED
 
 switch:
   - platform: restart
