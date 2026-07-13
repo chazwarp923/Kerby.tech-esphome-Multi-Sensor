@@ -107,6 +107,7 @@ display:
 
   - platform: mipi_spi
     model: ST7789V
+    data_rate: 1MHz
     enable_pin: 
       number: GPIO5
       ignore_strapping_warning: true
