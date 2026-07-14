@@ -4,7 +4,7 @@ esphome:
 
   project:
     name: "Kerby-Tech.Multi-Sensor"
-    version: "1.0.4"
+    version: "1.0.5"
 
 esp32:
   variant: esp32c6
@@ -99,6 +99,7 @@ font:
 
 display:
   - platform: ssd1306_i2c
+    id: ssd1306
     model: "SSD1306 128x64"
     rotation: 180
     lambda: |-
@@ -106,6 +107,7 @@ display:
     address: 0x3C
 
   - platform: mipi_spi
+    id: ST7789
     model: ST7789V
     data_rate: 1MHz
     enable_pin: 
