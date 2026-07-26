@@ -26,7 +26,7 @@ time:
   - platform: sntp
     id: "sntp_time"
     on_time:
-        - lvgl.widget.update:
+        - lvgl.label.update:
             id: time_value
             text: !lambda return id(sntp_time).now();
 
@@ -68,7 +68,7 @@ sensor:
       state_class: "measurement"
       id: temperature
       on_state:
-        - lvgl.widget.update:
+        - lvgl.label.update:
             id: temperature_value
             text: !lambda return id(temperature).state * (9.0/5.0) + 32.0;
     humidity:
@@ -76,7 +76,7 @@ sensor:
       state_class: "measurement"
       id: humidity
       on_state:
-        - lvgl.widget.update:
+        - lvgl.label.update:
             id: humidity_value
             text: !lambda return id(humidity).state;
     voc:
