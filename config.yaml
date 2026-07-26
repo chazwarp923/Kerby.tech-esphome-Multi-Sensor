@@ -30,7 +30,7 @@ time:
         then:
           - lvgl.label.update:
               id: time_value
-              text: !lambda return strftime(0, 0, id(roboto_time), "%X", id(sntp_time).now());
+              text: !lambda return char buffer [20]; strftime(buffer, 20, "%X", id(sntp_time).now());
 
 i2c:
   sda: GPIO6
