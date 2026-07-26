@@ -58,13 +58,13 @@ sensor:
       id: pm_2_5
       on_value:
         - lvgl.arc.update:
-          id: pm25_arc
-          value: !lambda return x;
+            id: pm25_arc
+            value: !lambda return x;
         - lvgl.label.update:
             id: pm25_value
             text:
               format: "%.0fμg/m³"
-              args: [ id(pm_2_5).state ]
+              args: [ x ]
               if_nan: "N/A"
     pm_4_0:
       name: PM 4µm
@@ -78,13 +78,13 @@ sensor:
       id: pm_10_0
       on_value:
         - lvgl.arc.update:
-          id: humidity_arc
-          value: !lambda return x;
+            id: pm10_arc
+            value: !lambda return x;
         - lvgl.label.update:
-            id: humidity_value
+            id: pm10_value
             text:
               format: "%.0fμg/m³"
-              args: [ id(pm_10_0).state ]
+              args: [ x ]
               if_nan: "N/A"
     temperature:
       name: Temperature
@@ -92,13 +92,13 @@ sensor:
       id: temperature
       on_value:
         - lvgl.arc.update:
-          id: temperature_arc
-          value: !lambda return x * (9.0/5.0) + 32.0;
+            id: temperature_arc
+            value: !lambda return x * (9.0/5.0) + 32.0;
         - lvgl.label.update:
             id: temperature_value
             text: 
               format: "%.0f°F"
-              args: [ id(temperature).state * (9.0/5.0) + 32.0 ]
+              args: [ x * (9.0/5.0) + 32.0 ]
               if_nan: "N/A"
     humidity:
       name: Humidity
@@ -106,13 +106,13 @@ sensor:
       id: humidity
       on_value:
         - lvgl.arc.update:
-          id: humidity_arc
-          value: !lambda return x;
+            id: humidity_arc
+            value: !lambda return x;
         - lvgl.label.update:
             id: humidity_value
             text:
               format: "%.0f%%"
-              args: [ id(humidity).state ]
+              args: [ x ]
               if_nan: "N/A"
     voc:
       name: VOC
@@ -121,13 +121,13 @@ sensor:
       id: voc
       on_value:
         - lvgl.arc.update:
-          id: voc_arc
-          value: !lambda return x;
+            id: voc_arc
+            value: !lambda return x;
         - lvgl.label.update:
             id: voc_value
             text:
               format: "%.0f"
-              args: [ id(voc).state ]
+              args: [ x ]
               if_nan: "N/A"
     nox:
       name: NOx
@@ -141,13 +141,13 @@ sensor:
       id: co2
       on_value:
         - lvgl.arc.update:
-          id: co2_arc
-          value: !lambda return x;
+            id: co2_arc
+            value: !lambda return x;
         - lvgl.label.update:
             id: co2_value
             text:
               format: "%.0fppm"
-              args: [ id(co2).state ]
+              args: [ x ]
               if_nan: "N/A"
     update_interval: 60s
 
