@@ -25,7 +25,7 @@ switch:
 time:
   - platform: sntp
     id: "sntp_time"
-    on_state:
+    on_time:
         - lvgl.widget.update:
             id: time_value
             state:
