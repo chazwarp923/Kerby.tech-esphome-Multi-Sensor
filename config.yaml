@@ -109,7 +109,6 @@ display:
   - platform: mipi_spi
     id: ST7789
     model: ST7789V
-    rotation: 180
     data_rate: 1MHz
     enable_pin: 
       number: GPIO5
@@ -124,7 +123,8 @@ display:
       width: 170
       #offset_width: 34
     invert_colors: true
-    rotation: 0
+    rotation: 180
+    update_interval: never
     #lambda: |-
       #it.printf(0, 0, id(roboto_icons), Color(0xFF0000), COLOR_OFF, display::TextAlign::TOP_LEFT, "🌡");
       #it.printf(0, 45, id(roboto_icons), Color(0x0000FF), COLOR_OFF, display::TextAlign::TOP_LEFT, "💧");
