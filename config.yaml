@@ -63,7 +63,7 @@ sensor:
         - lvgl.label.update:
             id: pm25_value
             text:
-              format: "%.0fμg/m³"
+              format: "%.0f"
               args: [ x ]
               if_nan: "N/A"
     pm_4_0:
@@ -83,7 +83,7 @@ sensor:
         - lvgl.label.update:
             id: pm10_value
             text:
-              format: "%.0fμg/m³"
+              format: "%.0f"
               args: [ x ]
               if_nan: "N/A"
     temperature:
@@ -146,7 +146,7 @@ sensor:
         - lvgl.label.update:
             id: co2_value
             text:
-              format: "%.0fppm"
+              format: "%.0f"
               args: [ x ]
               if_nan: "N/A"
     update_interval: 60s
