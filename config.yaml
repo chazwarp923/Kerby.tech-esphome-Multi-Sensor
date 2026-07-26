@@ -73,7 +73,9 @@ sensor:
       on_value:
         - lvgl.label.update:
             id: temperature_value
-            text: !lambda return std::to_string(id(temperature).state * (9.0/5.0) + 32.0));
+            text: 
+              format: "%.0f°F"
+              args: [ id(temperature).state * (9.0/5.0) + 32.0) ]
     humidity:
       name: Humidity
       state_class: "measurement"
@@ -81,7 +83,9 @@ sensor:
       on_value:
         - lvgl.label.update:
             id: humidity_value
-            text: !lambda return std::to_string(id(humidity).state);
+            text:
+              format: "%.0f%%"
+              args: [ id(humidity).state ]
     voc:
       name: VOC
       state_class: "measurement"
