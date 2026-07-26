@@ -31,8 +31,8 @@ time:
           - lvgl.label.update:
               id: time_value
               text:
-                format: "%s"
-                args: [ !lambda return id(sntp_time).now().strftime("%X") ]
+                time_format: "%X"
+
 
 i2c:
   sda: GPIO6
