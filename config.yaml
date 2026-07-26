@@ -142,7 +142,7 @@ display:
     dimensions:
       height: 320
       width: 170
-      #offset_width: 34
+      offset_width: 34
     invert_colors: true
     update_interval: never
     #lambda: |-
