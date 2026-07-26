@@ -26,12 +26,12 @@ time:
   - platform: sntp
     id: "sntp_time"
     on_time:
-      - seconds: /1
+      - minutes: /1
         then:
           - lvgl.label.update:
               id: time_value
               text:
-                time_format: "%X"
+                time_format: "%H:%M %p"
 
 i2c:
   sda: GPIO6
@@ -56,6 +56,16 @@ sensor:
       state_class: "measurement"
       unit_of_measurement: "μg/m³"
       id: pm_2_5
+      on_value:
+        - lvgl.arc.update:
+          id: pm25_arc
+          value: !lambda return x;
+        - lvgl.label.update:
+            id: pm25_value
+            text:
+              format: "%.0fμg/m³"
+              args: [ id(pm_2_5).state ]
+              if_nan: "N/A"
     pm_4_0:
       name: PM 4µm
       state_class: "measurement"
@@ -66,33 +76,59 @@ sensor:
       state_class: "measurement"
       unit_of_measurement: "μg/m³"
       id: pm_10_0
+      on_value:
+        - lvgl.arc.update:
+          id: humidity_arc
+          value: !lambda return x;
+        - lvgl.label.update:
+            id: humidity_value
+            text:
+              format: "%.0fμg/m³"
+              args: [ id(pm_10_0).state ]
+              if_nan: "N/A"
     temperature:
       name: Temperature
       state_class: "measurement"
       id: temperature
       on_value:
+        - lvgl.arc.update:
+          id: temperature_arc
+          value: !lambda return x * (9.0/5.0) + 32.0;
         - lvgl.label.update:
             id: temperature_value
             text: 
               format: "%.0f°F"
               args: [ id(temperature).state * (9.0/5.0) + 32.0 ]
-              if_nan: "Warm Up"
+              if_nan: "N/A"
     humidity:
       name: Humidity
       state_class: "measurement"
       id: humidity
       on_value:
+        - lvgl.arc.update:
+          id: humidity_arc
+          value: !lambda return x;
         - lvgl.label.update:
             id: humidity_value
             text:
               format: "%.0f%%"
               args: [ id(humidity).state ]
-              if_nan: "Warm Up"
+              if_nan: "N/A"
     voc:
       name: VOC
       state_class: "measurement"
       unit_of_measurement: "VOC Index"
       id: voc
+      on_value:
+        - lvgl.arc.update:
+          id: voc_arc
+          value: !lambda return x;
+        - lvgl.label.update:
+            id: voc_value
+            text:
+              format: "%.0f"
+              args: [ id(voc).state ]
+              if_nan: "N/A"
     nox:
       name: NOx
       state_class: "measurement"
@@ -103,6 +139,16 @@ sensor:
       state_class: "measurement"
       unit_of_measurement: "ppm"
       id: co2
+      on_value:
+        - lvgl.arc.update:
+          id: co2_arc
+          value: !lambda return x;
+        - lvgl.label.update:
+            id: co2_value
+            text:
+              format: "%.0fppm"
+              args: [ id(co2).state ]
+              if_nan: "N/A"
     update_interval: 60s
 
 font:
