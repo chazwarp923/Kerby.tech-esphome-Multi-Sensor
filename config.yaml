@@ -76,6 +76,7 @@ sensor:
             text: 
               format: "%.0f°F"
               args: [ id(temperature).state * (9.0/5.0) + 32.0) ]
+              if_nan: "Warm Up"
     humidity:
       name: Humidity
       state_class: "measurement"
@@ -86,6 +87,7 @@ sensor:
             text:
               format: "%.0f%%"
               args: [ id(humidity).state ]
+              if_nan: "Warm Up"
     voc:
       name: VOC
       state_class: "measurement"
