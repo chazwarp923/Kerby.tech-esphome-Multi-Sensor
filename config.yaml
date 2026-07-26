@@ -29,8 +29,8 @@ time:
       - seconds: /1
         then:
           - lvgl.label.update:
-            id: time_value
-            text: !lambda return id(sntp_time).now();
+              id: time_value
+              text: !lambda return id(sntp_time).now();
 
 i2c:
   sda: GPIO6
