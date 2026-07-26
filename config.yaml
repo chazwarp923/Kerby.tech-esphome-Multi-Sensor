@@ -31,7 +31,7 @@ time:
           - lvgl.label.update:
               id: time_value
               text:
-                format: "%"
+                format: "%s"
                 args: [ !lambda return id(sntp_time).now().strftime("%X") ]
 
 i2c:
