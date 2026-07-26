@@ -109,6 +109,7 @@ display:
   - platform: mipi_spi
     id: ST7789
     model: ST7789V
+    rotation: 180
     data_rate: 1MHz
     enable_pin: 
       number: GPIO5
@@ -120,23 +121,23 @@ display:
     reset_pin: GPIO2
     dimensions:
       height: 320
-      width: 172
-      offset_width: 34
+      width: 170
+      #offset_width: 34
     invert_colors: true
     rotation: 0
-    lambda: |-
-      it.printf(0, 0, id(roboto_icons), Color(0xFF0000), COLOR_OFF, display::TextAlign::TOP_LEFT, "🌡");
-      it.printf(0, 45, id(roboto_icons), Color(0x0000FF), COLOR_OFF, display::TextAlign::TOP_LEFT, "💧");
-      it.printf(0, 95, id(roboto_time), Color(0xFFEB00), COLOR_OFF, display::TextAlign::TOP_LEFT, "CO₂");
-      it.printf(0, 135, id(roboto_icons), Color(0x00FF00), COLOR_OFF, display::TextAlign::TOP_LEFT, "♨️");
-      it.printf(0, 180, id(roboto_time), Color(0xc19a6b), COLOR_OFF, display::TextAlign::TOP_LEFT, "1.0");
-      it.printf(0, 225, id(roboto_time), Color(0xc19a6b), COLOR_OFF, display::TextAlign::TOP_LEFT, "2.5");
-      it.printf(0, 270, id(roboto_time), Color(0xc19a6b), COLOR_OFF, display::TextAlign::TOP_LEFT, "10");
+    #lambda: |-
+      #it.printf(0, 0, id(roboto_icons), Color(0xFF0000), COLOR_OFF, display::TextAlign::TOP_LEFT, "🌡");
+      #it.printf(0, 45, id(roboto_icons), Color(0x0000FF), COLOR_OFF, display::TextAlign::TOP_LEFT, "💧");
+      #it.printf(0, 95, id(roboto_time), Color(0xFFEB00), COLOR_OFF, display::TextAlign::TOP_LEFT, "CO₂");
+      #it.printf(0, 135, id(roboto_icons), Color(0x00FF00), COLOR_OFF, display::TextAlign::TOP_LEFT, "♨️");
+      #it.printf(0, 180, id(roboto_time), Color(0xc19a6b), COLOR_OFF, display::TextAlign::TOP_LEFT, "1.0");
+      #it.printf(0, 225, id(roboto_time), Color(0xc19a6b), COLOR_OFF, display::TextAlign::TOP_LEFT, "2.5");
+      #it.printf(0, 270, id(roboto_time), Color(0xc19a6b), COLOR_OFF, display::TextAlign::TOP_LEFT, "10");
 
-      it.printf(60, 0, id(roboto_icons), "%.0f°F", id(temperature).state * (9.0/5.0) + 32.0);
-      it.printf(60, 45, id(roboto_icons), "%.0f%%", id(humidity).state);
-      it.printf(60, 90, id(roboto_time), "%.0fppm", id(co2).state);
-      it.printf(60, 135, id(roboto_time), "%.0f", id(voc).state);
-      it.printf(60, 180, id(roboto_time), "%.0fμg/m³", id(pm_1_0).state);
-      it.printf(60, 225, id(roboto_time), "%.0fμg/m³", id(pm_2_5).state);
-      it.printf(60, 270, id(roboto_time), "%.0fμg/m³", id(pm_10_0).state);
+      #it.printf(60, 0, id(roboto_icons), "%.0f°F", id(temperature).state * (9.0/5.0) + 32.0);
+      #it.printf(60, 45, id(roboto_icons), "%.0f%%", id(humidity).state);
+      #it.printf(60, 90, id(roboto_time), "%.0fppm", id(co2).state);
+      #it.printf(60, 135, id(roboto_time), "%.0f", id(voc).state);
+      #it.printf(60, 180, id(roboto_time), "%.0fμg/m³", id(pm_1_0).state);
+      #it.printf(60, 225, id(roboto_time), "%.0fμg/m³", id(pm_2_5).state);
+      #it.printf(60, 270, id(roboto_time), "%.0fμg/m³", id(pm_10_0).state);
