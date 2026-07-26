@@ -28,8 +28,7 @@ time:
     on_time:
         - lvgl.widget.update:
             id: time_value
-            state:
-              text: !lambda return id(sntp_time).now();
+            text: !lambda return id(sntp_time).now();
 
 i2c:
   sda: GPIO6
@@ -71,8 +70,7 @@ sensor:
       on_state:
         - lvgl.widget.update:
             id: temperature_value
-            state:
-              text: !lambda return id(temperature).state * (9.0/5.0) + 32.0;
+            text: !lambda return id(temperature).state * (9.0/5.0) + 32.0;
     humidity:
       name: Humidity
       state_class: "measurement"
@@ -80,8 +78,7 @@ sensor:
       on_state:
         - lvgl.widget.update:
             id: humidity_value
-            state:
-              text: !lambda return id(humidity).state;
+            text: !lambda return id(humidity).state;
     voc:
       name: VOC
       state_class: "measurement"
