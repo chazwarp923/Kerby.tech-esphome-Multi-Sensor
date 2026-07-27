@@ -107,7 +107,7 @@ sensor:
             id: set_arc_gradient
             min_value: !lambda return lv_arc_get_min_value(id(temperature_arc));
             max_value: !lambda return lv_arc_get_max_value(id(temperature_arc));
-            current_value: x
+            current_value: !lambda return x * (9.0/5.0) + 32.0;
         - lvgl.arc.update:
             id: temperature_arc
             indicator:
