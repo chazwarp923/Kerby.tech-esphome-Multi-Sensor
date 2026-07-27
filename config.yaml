@@ -113,7 +113,7 @@ sensor:
             current_value: x
         - lvgl.arc.update:
             id: temperature_arc
-            arc_color: id(arc_color)
+            arc_color: !lambda return id(arc_color)
     humidity:
       name: Humidity
       state_class: "measurement"
