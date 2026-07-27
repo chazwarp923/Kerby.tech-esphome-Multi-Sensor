@@ -37,7 +37,7 @@ time:
           - lvgl.label.update:
               id: time_value
               text:
-                time_format: "%H:%M %p"
+                time_format: "%I:%M %p"
 
 i2c:
   sda: GPIO6
