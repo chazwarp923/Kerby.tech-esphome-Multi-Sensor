@@ -110,7 +110,8 @@ sensor:
             current_value: x
         - lvgl.arc.update:
             id: temperature_arc
-            arc_color: !lambda return id(arc_color);
+            indicator:
+              arc_color: !lambda return id(arc_color);
             value: !lambda return x * (9.0/5.0) + 32.0;
     humidity:
       name: Humidity
