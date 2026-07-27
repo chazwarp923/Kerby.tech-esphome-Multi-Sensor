@@ -20,15 +20,15 @@ globals:
   - id: arc_color_good
     type: esphome::Color
     restore_value: no
-    initial_value: '"16,185,129"'
+    initial_value: 'Color(16,185,129)'
   - id: arc_color_okay
     type: esphome::Color
     restore_value: no
-    initial_value: '"221,243,0"'
+    initial_value: 'Color(221,243,0)'
   - id: arc_color_bad
     type: esphome::Color
     restore_value: no
-    initial_value: '"255,0,0"'
+    initial_value: 'Color(255,0,0)'
 
 logger:
 
