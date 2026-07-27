@@ -168,6 +168,7 @@ font:
     glyphsets: "GF_Latin_Kernel"
     glyphs: "₂³μ"
 
+display:
   - platform: mipi_spi
     id: ST7789
     model: ST7789V
