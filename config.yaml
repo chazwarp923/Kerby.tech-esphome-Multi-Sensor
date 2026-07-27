@@ -100,6 +100,10 @@ sensor:
               format: "%.0f°F"
               args: [ x * (9.0/5.0) + 32.0 ]
               if_nan: "N/A"
+        - script.execute:
+            id: set_arc_gradient
+            widget_id: temperature_arc
+            current_value: x
     humidity:
       name: Humidity
       state_class: "measurement"
@@ -200,21 +204,21 @@ font:
       #it.printf(60, 270, id(roboto_time), "%.0fμg/m³", id(pm_10_0).state);
 
 script:
-  - id: set_widget_gradient
+  - id: set_arc_gradient
     mode: parallel
     parameters:
       widget_id: string
-      min_value: int
-      max_value: int
       current_value: int
     then:
       - lambda: |-
+          float min_value = lv_arc_get_min_value(id(widget_id), LV_PART_INDICATOR)
+          float max_value = lv_arc_get_max_value(id(widget_id), LV_PART_INDICATOR)
           //Calculate where the current value is as a percentage of the range between mix and max value
           float gradient_percentage = (current_value - min_value) / (max_value - lower_value);
           Color start_color = Color(6, 73, 51); // Green
           Color end_color = Color(287, 6, 6);   // Red
           Color gradient_color = start_color.gradient(end_color, gradient_percentage);
-          #return gradient_color;
-      - lvgl.arc.update:
-          id: !lambda return widget_id;
-          arc_color: !lambda return gradient_color;
+          lv_obj_set_style_arc_color(widget_id, gradient_color, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+      #- lvgl.arc.update:
+          #id: !lambda return widget_id;
+          #arc_color: !lambda return gradient_color;
