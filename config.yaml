@@ -13,10 +13,18 @@ esp32:
     type: esp-idf
 
 globals:
-  - id: arc_color
+  - id: arc_color_good
     type: esphome::Color
     restore_value: no
-    #initial_value: '0'
+    initial_value: 'Color(16,185,129)'
+  - id: arc_color_okay
+    type: esphome::Color
+    restore_value: no
+    initial_value: 'Color(221,243,0)'
+  - id: arc_color_bad
+    type: esphome::Color
+    restore_value: no
+    initial_value: 'Color(255,0,0)'
 
 logger:
 
@@ -103,16 +111,19 @@ sensor:
               format: "%.0f°F"
               args: [ x * (9.0/5.0) + 32.0 ]
               if_nan: "N/A"
-        - script.execute:
-            id: set_arc_gradient
-            min_value: !lambda return lv_arc_get_min_value(id(temperature_arc));
-            max_value: !lambda return lv_arc_get_max_value(id(temperature_arc));
-            current_value: !lambda return x * (9.0/5.0) + 32.0;
+        #- script.execute:
+            #id: set_arc_gradient
+            #min_value: !lambda return lv_arc_get_min_value(id(temperature_arc));
+            #max_value: !lambda return lv_arc_get_max_value(id(temperature_arc));
+            #current_value: !lambda return x * (9.0/5.0) + 32.0;
+        - lvgl.indicator.update:
+            id: temperature_arc_indicator
+            arc_color: !lambda return id(arc_color_okay)
         - lvgl.arc.update:
             id: temperature_arc
             value: !lambda return x * (9.0/5.0) + 32.0;
-        - lambda: |- #Update Indicator color based on current value
-            lv_obj_set_style_arc_color(id(temperature_arc), Color(id(arc_color).red, id(arc_color).green, id(arc_color).blue), LV_PART_INDICATOR | LV_STATE_DEFAULT); 
+        #- lambda: |- #Update Indicator color based on current value
+            #lv_obj_set_style_arc_color(id(temperature_arc_indicator), Color(id(arc_color).red, id(arc_color).green, id(arc_color).blue); 
     humidity:
       name: Humidity
       state_class: "measurement"
