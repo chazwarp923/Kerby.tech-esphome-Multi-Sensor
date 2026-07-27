@@ -97,9 +97,6 @@ sensor:
       state_class: "measurement"
       id: temperature
       on_value:
-        - lvgl.arc.update:
-            id: temperature_arc
-            value: !lambda return x * (9.0/5.0) + 32.0;
         - lvgl.label.update:
             id: temperature_value
             text: 
@@ -114,6 +111,7 @@ sensor:
         - lvgl.arc.update:
             id: temperature_arc
             arc_color: !lambda return id(arc_color);
+            value: !lambda return x * (9.0/5.0) + 32.0;
     humidity:
       name: Humidity
       state_class: "measurement"
