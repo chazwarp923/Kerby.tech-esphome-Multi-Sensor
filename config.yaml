@@ -108,8 +108,8 @@ sensor:
               if_nan: "N/A"
         - script.execute:
             id: set_arc_gradient
-            min_value: !lambda lv_arc_get_min_value(id(temperature_arc));
-            max_value: !lambda lv_arc_get_max_value(id(temperature_arc));
+            min_value: !lambda return lv_arc_get_min_value(id(temperature_arc));
+            max_value: !lambda return lv_arc_get_max_value(id(temperature_arc));
             current_value: x
         - lvgl.arc.update:
             id: temperature_arc
