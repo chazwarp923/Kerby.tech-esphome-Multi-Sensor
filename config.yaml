@@ -14,21 +14,21 @@ esp32:
 
 globals:
   - id: arc_color
-    type: esphome::Color
+    type: int
     restore_value: no
-    initial_value: 'Color(16,185,129)'
+    initial_value: '0x10b981'
   - id: arc_color_good
-    type: esphome::Color
+    type: int
     restore_value: no
-    initial_value: 'Color(16,185,129)'
+    initial_value: '0x10b981'
   - id: arc_color_okay
-    type: esphome::Color
+    type: int
     restore_value: no
-    initial_value: 'Color(221,243,0)'
+    initial_value: '0xddf300'
   - id: arc_color_bad
-    type: esphome::Color
+    type: int
     restore_value: no
-    initial_value: 'Color(255,0,0)'
+    initial_value: '0xFF0000'
 
 logger:
 
@@ -124,7 +124,7 @@ sensor:
             id: temperature_arc
             value: !lambda return x * (9.0/5.0) + 32.0;
             indicator:
-              arc_color: 0x0000FF #arc_color_okay
+              arc_color: id(arc_color_okay)
         #- lambda: |- #Update Indicator color based on current value
             #lv_obj_set_style_arc_color(id(temperature_arc_indicator), Color(id(arc_color).red, id(arc_color).green, id(arc_color).blue);
     humidity:
