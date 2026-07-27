@@ -13,10 +13,6 @@ esp32:
     type: esp-idf
 
 globals:
-  - id: arc_color
-    type: esphome::Color
-    restore_value: no
-    #initial_value: '0x10b981'
   - id: arc_color_good
     type: esphome::Color
     restore_value: no
@@ -126,9 +122,9 @@ sensor:
             indicator:
               arc_color: !lambda |-
                 float temperature = x * (9.0/5.0) + 32.0;
-                if      (temperature >= 82)                    { return id(arc_color_bad); };
-                else if (temperature < 82 && temperature > 68) { return id(arc_color_good); };
-                else if (temperature <= 68)                    { return id(arc_color_bad); };
+                if      (temperature >= 82)                    { return id(arc_color_bad); }
+                else if (temperature < 82 && temperature > 68) { return id(arc_color_good); }
+                else if (temperature <= 68)                    { return id(arc_color_bad); }
     humidity:
       name: Humidity
       state_class: "measurement"
@@ -199,24 +195,3 @@ display:
       offset_width: 34
     invert_colors: true
     update_interval: never
-
-script:
-  - id: set_arc_gradient
-    mode: parallel
-    parameters:
-      min_value: int
-      max_value: int
-      current_value: int
-    then:
-      - lambda: |-
-          //Calculate where the current value is as a percentage of the range between mix and max value
-          float gradient_percentage = ((current_value - min_value) * 1.0) / ((max_value - min_value) * 1.0);
-          Color start_color = Color(6, 73, 51); // Green
-          Color end_color = Color(255, 0, 0);   // Red
-          Color gradient_color = start_color.gradient(end_color, gradient_percentage);
-          id(arc_color) = gradient_color;
-          char hex_buffer[8];
-          sprintf(hex_buffer, "%02X%02X%02X", id(arc_color).red, id(arc_color).green, id(arc_color).blue);
-          std::string hex_str(hex_buffer);
-          ESP_LOGI("Post-Calc", "Min: %d, Max: %d, Current: %d, %%: %.2f", min_value, max_value, current_value, gradient_percentage);
-          ESP_LOGI("Color", "The current value is: %s", hex_str.c_str());
