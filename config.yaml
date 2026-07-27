@@ -228,5 +228,5 @@ script:
           Color gradient_color = start_color.gradient(end_color, gradient_percentage);
           id(arc_color) = gradient_color;
           char hex_buffer[8];
-          sprintf(hex_buffer, "%02X%02X%02X", arc_color.red, arc_color.green, arc_color.blue);
-          ESP_LOGI("my_tag", "The current value is: %.1f", hex_str(hex_buffer));
+          sprintf(hex_buffer, "%02X%02X%02X", id(arc_color).red, id(arc_color).green, id(arc_color).blue);
+          ESP_LOGI("my_tag", "The current value is: %s", hex_str(hex_buffer));
