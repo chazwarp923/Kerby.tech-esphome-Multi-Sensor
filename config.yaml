@@ -112,7 +112,7 @@ sensor:
             id: temperature_arc
             value: !lambda return x * (9.0/5.0) + 32.0;
             indicator:
-              arc_color: !lambda return Color(87, 6, 6); 
+              arc_color: !lambda return Color(255, 0, 0); 
               #id(arc_color);
     humidity:
       name: Humidity
@@ -197,7 +197,7 @@ script:
           //Calculate where the current value is as a percentage of the range between mix and max value
           float gradient_percentage = ((current_value - min_value) * 1.0) / ((max_value - min_value) * 1.0);
           Color start_color = Color(6, 73, 51); // Green
-          Color end_color = Color(87, 6, 6);   // Red
+          Color end_color = Color(255, 0, 0);   // Red
           Color gradient_color = start_color.gradient(end_color, gradient_percentage);
           id(arc_color) = gradient_color;
           char hex_buffer[8];
