@@ -115,6 +115,7 @@ sensor:
               #arc_color: !lambda return Color(255, 0, 0); 
               #id(arc_color);
         - lvgl.indicator.update:
+            id: temperature_arc
             color: !lambda return Color(255, 0, 0); 
     humidity:
       name: Humidity
