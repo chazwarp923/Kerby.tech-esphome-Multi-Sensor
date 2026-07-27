@@ -18,15 +18,15 @@ globals:
     restore_value: no
     #initial_value: '0x10b981'
   - id: arc_color_good
-    type: int
+    type: uint32_t
     restore_value: no
     initial_value: '0x10b981'
   - id: arc_color_okay
-    type: int
+    type: uint32_t
     restore_value: no
     initial_value: '0xddf300'
   - id: arc_color_bad
-    type: int
+    type: uint32_t
     restore_value: no
     initial_value: '0xFF0000'
 
