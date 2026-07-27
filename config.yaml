@@ -224,7 +224,7 @@ script:
     then:
       - lambda: |-
           //Calculate where the current value is as a percentage of the range between mix and max value
-          float gradient_percentage = (current_value - min_value) / (max_value - lower_value);
+          float gradient_percentage = (current_value - min_value) / (max_value - min_value);
           Color start_color = Color(6, 73, 51); // Green
           Color end_color = Color(287, 6, 6);   // Red
           Color gradient_color = start_color.gradient(end_color, gradient_percentage);
