@@ -16,7 +16,7 @@ globals:
   - id: arc_color
     type: int
     restore_value: no
-    #inital_value: ''
+    inital_value: '0'
 
 logger:
 
