@@ -122,8 +122,10 @@ sensor:
         - lvgl.arc.update:
             id: temperature_arc
             value: !lambda return x * (9.0/5.0) + 32.0;
+            indicator:
+              arc_color: id(arc_color_okay)
         #- lambda: |- #Update Indicator color based on current value
-            #lv_obj_set_style_arc_color(id(temperature_arc_indicator), Color(id(arc_color).red, id(arc_color).green, id(arc_color).blue); 
+            #lv_obj_set_style_arc_color(id(temperature_arc_indicator), Color(id(arc_color).red, id(arc_color).green, id(arc_color).blue);
     humidity:
       name: Humidity
       state_class: "measurement"
