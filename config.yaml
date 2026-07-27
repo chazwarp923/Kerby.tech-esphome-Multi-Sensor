@@ -164,15 +164,6 @@ font:
     glyphsets: "GF_Latin_Kernel"
     glyphs: "₂³μ"
 
-display:
-  - platform: ssd1306_i2c
-    id: ssd1306
-    model: "SSD1306 128x64"
-    rotation: 180
-    lambda: |-
-      it.strftime(0, 0, id(roboto_time), "%X", id(sntp_time).now());
-    address: 0x3C
-
   - platform: mipi_spi
     id: ST7789
     model: ST7789V
@@ -207,3 +198,23 @@ display:
       #it.printf(60, 180, id(roboto_time), "%.0fμg/m³", id(pm_1_0).state);
       #it.printf(60, 225, id(roboto_time), "%.0fμg/m³", id(pm_2_5).state);
       #it.printf(60, 270, id(roboto_time), "%.0fμg/m³", id(pm_10_0).state);
+
+script:
+  - id: set_widget_gradient
+    mode: parallel
+    parameters:
+      widget_id: string
+      min_value: int
+      max_value: int
+      current_value: int
+    then:
+      - lambda: |-
+          //Calculate where the current value is as a percentage of the range between mix and max value
+          float gradient_percentage = (current_value - min_value) / (max_value - lower_value);
+          Color start_color = Color(6, 73, 51); // Green
+          Color end_color = Color(287, 6, 6);   // Red
+          Color gradient_color = start_color.gradient(end_color, gradient_percentage);
+          #return gradient_color;
+      - lvgl.arc.update:
+          id: !lambda return widget_id;
+          arc_color: !lambda return gradient_color;
