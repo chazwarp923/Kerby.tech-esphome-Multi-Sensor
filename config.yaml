@@ -13,6 +13,10 @@ esp32:
     type: esp-idf
 
 globals:
+  - id: arc_color
+    type: esphome::Color
+    restore_value: no
+    initial_value: 'Color(16,185,129)'
   - id: arc_color_good
     type: esphome::Color
     restore_value: no
