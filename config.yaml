@@ -14,9 +14,9 @@ esp32:
 
 globals:
   - id: arc_color
-    type: int
+    type: esphome::Color
     restore_value: no
-    initial_value: '0'
+    #initial_value: '0'
 
 logger:
 
@@ -113,7 +113,7 @@ sensor:
             current_value: x
         - lvgl.arc.update:
             id: temperature_arc
-            arc_color: !lambda return id(arc_color)
+            arc_color: !lambda return id(arc_color);
     humidity:
       name: Humidity
       state_class: "measurement"
