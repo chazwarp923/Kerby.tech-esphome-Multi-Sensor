@@ -14,7 +14,7 @@ esp32:
 
 globals:
   - id: arc_color
-    type: esphome::Color
+    type: int
     restore_value: no
     #inital_value: ''
 
