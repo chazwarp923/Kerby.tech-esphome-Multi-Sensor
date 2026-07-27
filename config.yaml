@@ -116,9 +116,6 @@ sensor:
             #min_value: !lambda return lv_arc_get_min_value(id(temperature_arc));
             #max_value: !lambda return lv_arc_get_max_value(id(temperature_arc));
             #current_value: !lambda return x * (9.0/5.0) + 32.0;
-        - lvgl.indicator.update:
-            id: temperature_arc_indicator
-            arc_color: !lambda return id(arc_color_okay)
         - lvgl.arc.update:
             id: temperature_arc
             value: !lambda return x * (9.0/5.0) + 32.0;
