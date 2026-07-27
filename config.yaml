@@ -229,4 +229,5 @@ script:
           id(arc_color) = gradient_color;
           char hex_buffer[8];
           sprintf(hex_buffer, "%02X%02X%02X", id(arc_color).red, id(arc_color).green, id(arc_color).blue);
-          ESP_LOGI("my_tag", "The current value is: %s", hex_str(hex_buffer));
+          std::string hex_str(hex_buffer);
+          ESP_LOGI("my_tag", "The current value is: %s", hex_str);
