@@ -113,8 +113,8 @@ sensor:
             arc_color: !lambda return id(arc_color);
             value: !lambda return x * (9.0/5.0) + 32.0;
         - logger.log:
-            format: "Arc color is: %.0f"
-            args: [ id(arc_color) ]
+            format: "Arc color is Red: %.2f, Green: %.2f, Blue: %.2f"
+            args: [ id(arc_color).red, id(arc_color).green, id(arc_color).blue ]
     humidity:
       name: Humidity
       state_class: "measurement"
