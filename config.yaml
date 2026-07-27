@@ -231,4 +231,5 @@ script:
           char hex_buffer[8];
           sprintf(hex_buffer, "%02X%02X%02X", id(arc_color).red, id(arc_color).green, id(arc_color).blue);
           std::string hex_str(hex_buffer);
-          ESP_LOGI("my_tag", "The current value is: %s", hex_str.c_str());
+          ESP_LOGI("Values", "Min: %s, Max: %s, Current: %s, %%: %.2f", min_value.c_str(), max_value.c_str(), current_value.c_str(), gradient_percentage);
+          ESP_LOGI("Color", "The current value is: %s", hex_str.c_str());
