@@ -12,6 +12,12 @@ esp32:
   framework: 
     type: esp-idf
 
+globals:
+  - id: arc_color
+    type: esphome::Color
+    restore_value: no
+    #inital_value: ''
+
 logger:
 
 network:
@@ -102,8 +108,12 @@ sensor:
               if_nan: "N/A"
         - script.execute:
             id: set_arc_gradient
-            target_arc: temperature_arc
+            min_value: !lambda lv_arc_get_min_value(id(temperature_arc));
+            max_value: !lambda lv_arc_get_max_value(id(temperature_arc));
             current_value: x
+        - lvgl.arc.update:
+            id: temperature_arc
+            arc_color: id(arc_color)
     humidity:
       name: Humidity
       state_class: "measurement"
@@ -208,19 +218,14 @@ script:
   - id: set_arc_gradient
     mode: parallel
     parameters:
-      target_arc: lvgl::LVGLWidget*
+      min_value: int
+      max_value: int
       current_value: int
     then:
       - lambda: |-
-          auto *raw_obj = target_arc->obj;
-          float min_value = lv_arc_get_min_value(raw_obj);
-          float max_value = lv_arc_get_max_value(raw_obj);
           //Calculate where the current value is as a percentage of the range between mix and max value
           float gradient_percentage = (current_value - min_value) / (max_value - lower_value);
           Color start_color = Color(6, 73, 51); // Green
           Color end_color = Color(287, 6, 6);   // Red
           Color gradient_color = start_color.gradient(end_color, gradient_percentage);
-          lv_obj_set_style_arc_color(raw_obj, gradient_color);
-      #- lvgl.arc.update:
-          #id: !lambda return widget_id;
-          #arc_color: !lambda return gradient_color;
+          id(arc_color) = gradient_color;
