@@ -223,7 +223,7 @@ script:
     then:
       - lambda: |-
           //Calculate where the current value is as a percentage of the range between mix and max value
-          ESP_LOGI("Pre-calc", "Min: %d, Max: %d, Current: %d, %%: %d", min_value, max_value, current_value, ((current_value - min_value) / (max_value - min_value)));
+          ESP_LOGI("Pre-calc", "Min: %d, Max: %d, Current: %d, %%: %s", min_value, max_value, current_value, String((current_value - min_value) / (max_value - min_value)));
           float gradient_percentage = ((current_value - min_value) / (max_value - min_value));
           Color start_color = Color(6, 73, 51); // Green
           Color end_color = Color(87, 6, 6);   // Red
