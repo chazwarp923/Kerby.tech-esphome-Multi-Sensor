@@ -208,7 +208,7 @@ script:
   - id: set_arc_gradient
     mode: parallel
     parameters:
-      target_arc: lvgl::Arc*
+      target_arc: lvgl::LVGLWidget*
       current_value: int
     then:
       - lambda: |-
