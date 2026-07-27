@@ -212,8 +212,8 @@ script:
       current_value: int
     then:
       - lambda: |-
-          float min_value = lv_arc_get_min_value(id(widget_id), LV_PART_INDICATOR)
-          float max_value = lv_arc_get_max_value(id(widget_id), LV_PART_INDICATOR)
+          float min_value = lv_arc_get_min_value(widget_id, LV_PART_INDICATOR)
+          float max_value = lv_arc_get_max_value(widget_id, LV_PART_INDICATOR)
           //Calculate where the current value is as a percentage of the range between mix and max value
           float gradient_percentage = (current_value - min_value) / (max_value - lower_value);
           Color start_color = Color(6, 73, 51); // Green
