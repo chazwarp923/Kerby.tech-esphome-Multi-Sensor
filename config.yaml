@@ -85,8 +85,9 @@ time:
               indicator:
                 arc_color: !lambda |-
                   int x = id(humidity).state;
-                  if (x > 50) { return id(arc_color_bad); }
-                  else        { return id(arc_color_good); };
+                  if (x >= 60)               { return id(arc_color_bad); }
+                  else if (x > 50 && x < 60) { return id(arc_color_okay); }
+                  else                       { return id(arc_color_good); }
       - seconds: 25
         then:
           - lvgl.label.update:
