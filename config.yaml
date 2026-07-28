@@ -50,68 +50,68 @@ time:
       - seconds: 5
         then:
           - lvgl.arc.update:
-            id: temperature_arc
-            value: !lambda return id(temperature).state * (9.0/5.0) + 32.0;
-            indicator:
-              arc_color: !lambda |-
-                float temperature = id(temperature).state * (9.0/5.0) + 32.0;
-                if      (temperature >= 82)                    { return id(arc_color_bad); }
-                else if (temperature < 82 && temperature > 68) { return id(arc_color_good); }
-                else if (temperature <= 68)                    { return id(arc_color_cold); };
+              id: temperature_arc
+              value: !lambda return id(temperature).state * (9.0/5.0) + 32.0;
+              indicator:
+                arc_color: !lambda |-
+                  float temperature = id(temperature).state * (9.0/5.0) + 32.0;
+                  if      (temperature >= 82)                    { return id(arc_color_bad); }
+                  else if (temperature < 82 && temperature > 68) { return id(arc_color_good); }
+                  else if (temperature <= 68)                    { return id(arc_color_cold); };
       - seconds: 15
         then:
           - lvgl.arc.update:
-            id: humidity_arc
-            value: !lambda return id(humidity).state;
-            indicator:
-              arc_color: !lambda |-
-                int x = id(humidity).state;
-                if (x > 50) { return id(arc_color_bad); }
-                else        { return id(arc_color_good); };
+              id: humidity_arc
+              value: !lambda return id(humidity).state;
+              indicator:
+                arc_color: !lambda |-
+                  int x = id(humidity).state;
+                  if (x > 50) { return id(arc_color_bad); }
+                  else        { return id(arc_color_good); };
       - seconds: 25
         then:
           - lvgl.arc.update:
-            id: voc_arc
-            value: !lambda return id(voc).state;
-            indicator:
-              arc_color: !lambda |-
-                int x = id(voc).state;
-                if      (x <= 100)           { return id(arc_color_good); }
-                else if (x > 100 && x < 300) { return id(arc_color_okay); }
-                else if (x > 300)            { return id(arc_color_bad); };
+              id: voc_arc
+              value: !lambda return id(voc).state;
+              indicator:
+                arc_color: !lambda |-
+                  int x = id(voc).state;
+                  if      (x <= 100)           { return id(arc_color_good); }
+                  else if (x > 100 && x < 300) { return id(arc_color_okay); }
+                  else if (x > 300)            { return id(arc_color_bad); };
       - seconds: 35
         then:
           - lvgl.arc.update:
-            id: co2_arc
-            value: !lambda return id(co2).state;
-            indicator:
-              arc_color: !lambda |-
-                int x = id(co2).state;
-                if      (x <= 1000)            { return id(arc_color_good); }
-                else if (x > 1000 && x < 2000) { return id(arc_color_okay); }
-                else if (x > 2000)             { return id(arc_color_bad); };
+              id: co2_arc
+              value: !lambda return id(co2).state;
+              indicator:
+                arc_color: !lambda |-
+                  int x = id(co2).state;
+                  if      (x <= 1000)            { return id(arc_color_good); }
+                  else if (x > 1000 && x < 2000) { return id(arc_color_okay); }
+                  else if (x > 2000)             { return id(arc_color_bad); };
       - seconds: 45
         then:
           - lvgl.arc.update:
-            id: pm25_arc
-            value: !lambda return id(pm_2_5).state;
-            indicator:
-              arc_color: !lambda |-
-                int x = id(pm_2_5).state;
-                if      (x <= 5)           { return id(arc_color_good); }
-                else if (x > 5 && x < 35)  { return id(arc_color_okay); }
-                else if (x > 35)           { return id(arc_color_bad); };
+              id: pm25_arc
+              value: !lambda return id(pm_2_5).state;
+              indicator:
+                arc_color: !lambda |-
+                  int x = id(pm_2_5).state;
+                  if      (x <= 5)           { return id(arc_color_good); }
+                  else if (x > 5 && x < 35)  { return id(arc_color_okay); }
+                  else if (x > 35)           { return id(arc_color_bad); };
       - seconds: 55
         then:
           - lvgl.arc.update:
-            id: pm10_arc
-            value: !lambda return id(pm_10_0).state;
-            indicator:
-              arc_color: !lambda |-
-                int x = id(pm_10_0).state;
-                if      (x <= 5)           { return id(arc_color_good); }
-                else if (x > 5 && x < 35)  { return id(arc_color_okay); }
-                else if (x > 35)           { return id(arc_color_bad); };
+              id: pm10_arc
+              value: !lambda return id(pm_10_0).state;
+              indicator:
+                arc_color: !lambda |-
+                  int x = id(pm_10_0).state;
+                  if      (x <= 5)           { return id(arc_color_good); }
+                  else if (x > 5 && x < 35)  { return id(arc_color_okay); }
+                  else if (x > 35)           { return id(arc_color_bad); };
 
 i2c:
   sda: GPIO6
