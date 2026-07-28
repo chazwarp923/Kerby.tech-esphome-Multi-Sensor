@@ -26,6 +26,10 @@ globals:
     type: esphome::Color
     restore_value: no
     initial_value: 'Color(0,192,255)'
+  - id: arc_color_error
+    type: esphome::Color
+    restore_value: no
+    initial_value: 'Color(255,255,255)'
 
 logger:
 
@@ -51,13 +55,16 @@ time:
         then:
           - lvgl.arc.update:
               id: temperature_arc
-              value: !lambda return id(temperature).state * (9.0/5.0) + 32.0;
+              value: !lambda |-
+                float temperature = id(temperature).state;
+                return temperature * (9.0/5.0) + 32.0;
               indicator:
                 arc_color: !lambda |-
                   float temperature = id(temperature).state * (9.0/5.0) + 32.0;
                   if      (temperature >= 82)                    { return id(arc_color_bad); }
                   else if (temperature < 82 && temperature > 68) { return id(arc_color_good); }
-                  else if (temperature <= 68)                    { return id(arc_color_cold); };
+                  else if (temperature <= 68)                    { return id(arc_color_cold); }
+                  else                                           { return id(arc_color_error); }
       - seconds: 15
         then:
           - lvgl.arc.update:
@@ -78,7 +85,8 @@ time:
                   int x = id(voc).state;
                   if      (x <= 100)           { return id(arc_color_good); }
                   else if (x > 100 && x < 300) { return id(arc_color_okay); }
-                  else if (x > 300)            { return id(arc_color_bad); };
+                  else if (x > 300)            { return id(arc_color_bad); }
+                  else                         { return id(arc_color_error); }
       - seconds: 35
         then:
           - lvgl.arc.update:
@@ -89,7 +97,8 @@ time:
                   int x = id(co2).state;
                   if      (x <= 1000)            { return id(arc_color_good); }
                   else if (x > 1000 && x < 2000) { return id(arc_color_okay); }
-                  else if (x > 2000)             { return id(arc_color_bad); };
+                  else if (x > 2000)             { return id(arc_color_bad); }
+                  else                           { return id(arc_color_error); }
       - seconds: 45
         then:
           - lvgl.arc.update:
@@ -100,7 +109,8 @@ time:
                   int x = id(pm_2_5).state;
                   if      (x <= 5)           { return id(arc_color_good); }
                   else if (x > 5 && x < 35)  { return id(arc_color_okay); }
-                  else if (x > 35)           { return id(arc_color_bad); };
+                  else if (x > 35)           { return id(arc_color_bad); }
+                  else                       { return id(arc_color_error); }
       - seconds: 55
         then:
           - lvgl.arc.update:
@@ -111,7 +121,8 @@ time:
                   int x = id(pm_10_0).state;
                   if      (x <= 5)           { return id(arc_color_good); }
                   else if (x > 5 && x < 35)  { return id(arc_color_okay); }
-                  else if (x > 35)           { return id(arc_color_bad); };
+                  else if (x > 35)           { return id(arc_color_bad); }
+                  else                       { return id(arc_color_error); }
 
 i2c:
   sda: GPIO6
