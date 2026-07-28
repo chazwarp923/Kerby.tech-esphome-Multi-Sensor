@@ -85,7 +85,7 @@ sensor:
               arc_color: !lambda |-
                 if      (x <= 5)           { return id(arc_color_good); }
                 else if (x > 5 && x < 35)  { return id(arc_color_okay); }
-                else if (x > 35)           { return id(arc_color_bad); }
+                else if (x > 35)           { return id(arc_color_bad); };
     pm_4_0:
       name: PM 4µm
       state_class: "measurement"
@@ -110,7 +110,7 @@ sensor:
               arc_color: !lambda |-
                 if      (x <= 5)           { return id(arc_color_good); }
                 else if (x > 5 && x < 35)  { return id(arc_color_okay); }
-                else if (x > 35)           { return id(arc_color_bad); }
+                else if (x > 35)           { return id(arc_color_bad); };
     temperature:
       name: Temperature
       state_class: "measurement"
@@ -130,7 +130,7 @@ sensor:
                 float temperature = x * (9.0/5.0) + 32.0;
                 if      (temperature >= 82)                    { return id(arc_color_bad); }
                 else if (temperature < 82 && temperature > 68) { return id(arc_color_good); }
-                else if (temperature <= 68)                    { return id(arc_color_cold); }
+                else if (temperature <= 68)                    { return id(arc_color_cold); };
     humidity:
       name: Humidity
       state_class: "measurement"
@@ -148,7 +148,7 @@ sensor:
             indicator:
               arc_color: !lambda |-
                 if (x > 50) { return id(arc_color_bad); }
-                else        { return id(arc_color_good); }
+                else        { return id(arc_color_good); };
     voc:
       name: VOC
       state_class: "measurement"
@@ -168,7 +168,7 @@ sensor:
               arc_color: !lambda |-
                 if      (x <= 100)           { return id(arc_color_good); }
                 else if (x > 100 && x < 300) { return id(arc_color_okay); }
-                else if (x > 300)            { return id(arc_color_bad); }
+                else if (x > 300)            { return id(arc_color_bad); };
     nox:
       name: NOx
       state_class: "measurement"
@@ -193,7 +193,7 @@ sensor:
               arc_color: !lambda |-
                 if      (x <= 1000)            { return id(arc_color_good); }
                 else if (x > 1000 && x < 2000) { return id(arc_color_okay); }
-                else if (x > 2000)             { return id(arc_color_bad); }
+                else if (x > 2000)             { return id(arc_color_bad); };
     update_interval: 60s
 
 display:
