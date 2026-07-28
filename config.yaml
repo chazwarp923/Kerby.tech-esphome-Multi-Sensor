@@ -57,16 +57,16 @@ time:
               id: temperature_value
               text: 
                 format: "%.0f°F"
-                args: [ id(temperature).state * (9.0/5.0) + 32.0 ]
+                args: [ id(temperature).get_state() * (9.0/5.0) + 32.0 ]
                 if_nan: "N/A"
           - lvgl.arc.update:
               id: temperature_arc
               value: !lambda |-
-                float temp = id(temperature).state;
+                float temp = id(temperature).get_state();
                 return temp * (9.0/5.0) + 32.0;
               indicator:
                 arc_color: !lambda |-
-                  float temp = id(temperature).state * (9.0/5.0) + 32.0;
+                  float temp = id(temperature).get_state() * (9.0/5.0) + 32.0;
                   if      (temp>= 82)              { return id(arc_color_bad); }
                   else if (temp < 82 && temp > 68) { return id(arc_color_good); }
                   else if (temp <= 68)             { return id(arc_color_cold); }
@@ -77,11 +77,11 @@ time:
               id: humidity_value
               text:
                 format: "%.0f%%"
-                args: [ id(humidity).state ]
+                args: [ id(humidity).get_state() ]
                 if_nan: "N/A"
           - lvgl.arc.update:
               id: humidity_arc
-              value: !lambda return id(humidity).state;
+              value: !lambda return id(humidity).get_state();
               indicator:
                 arc_color: !lambda |-
                   int x = id(humidity).state;
@@ -93,11 +93,11 @@ time:
               id: voc_value
               text:
                 format: "%.0f"
-                args: [ id(voc).state ]
+                args: [ id(voc).get_state() ]
                 if_nan: "N/A"
           - lvgl.arc.update:
               id: voc_arc
-              value: !lambda return id(voc).state;
+              value: !lambda return id(voc).get_state();
               indicator:
                 arc_color: !lambda |-
                   int x = id(voc).state;
@@ -111,11 +111,11 @@ time:
               id: co2_value
               text:
                 format: "%.0f"
-                args: [ id(co2).state ]
+                args: [ id(co2).get_state() ]
                 if_nan: "N/A"
           - lvgl.arc.update:
               id: co2_arc
-              value: !lambda return id(co2).state;
+              value: !lambda return id(co2).get_state();
               indicator:
                 arc_color: !lambda |-
                   int x = id(co2).state;
@@ -129,11 +129,11 @@ time:
               id: pm25_value
               text:
                 format: "%.0f"
-                args: [ id(pm_2_5).state ]
+                args: [ id(pm_2_5).get_state() ]
                 if_nan: "N/A"
           - lvgl.arc.update:
               id: pm25_arc
-              value: !lambda return id(pm_2_5).state;
+              value: !lambda return id(pm_2_5).get_state();
               indicator:
                 arc_color: !lambda |-
                   int x = id(pm_2_5).state;
@@ -147,11 +147,11 @@ time:
               id: pm10_value
               text:
                 format: "%.0f"
-                args: [ id(pm_10_0).state ]
+                args: [ id(pm_10_0).get_state() ]
                 if_nan: "N/A"
           - lvgl.arc.update:
               id: pm10_arc
-              value: !lambda return id(pm_10_0).state;
+              value: !lambda return id(pm_10_0).get_state();
               indicator:
                 arc_color: !lambda |-
                   int x = id(pm_10_0).state;
