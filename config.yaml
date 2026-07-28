@@ -75,15 +75,20 @@ sensor:
       unit_of_measurement: "μg/m³"
       id: pm_2_5
       on_value:
-        - lvgl.arc.update:
-            id: pm25_arc
-            value: !lambda return x;
         - lvgl.label.update:
             id: pm25_value
             text:
               format: "%.0f"
               args: [ x ]
               if_nan: "N/A"
+        - lvgl.arc.update:
+            id: pm25_arc
+            value: !lambda return x;
+            indicator:
+              arc_color: !lambda |-
+                if      (x <= 5)           { return id(arc_color_good); }
+                else if (x > 5 && x < 35)  { return id(arc_color_okay); }
+                else if (x > 35)           { return id(arc_color_bad); }
     pm_4_0:
       name: PM 4µm
       state_class: "measurement"
@@ -95,15 +100,20 @@ sensor:
       unit_of_measurement: "μg/m³"
       id: pm_10_0
       on_value:
-        - lvgl.arc.update:
-            id: pm10_arc
-            value: !lambda return x;
         - lvgl.label.update:
             id: pm10_value
             text:
               format: "%.0f"
               args: [ x ]
               if_nan: "N/A"
+        - lvgl.arc.update:
+            id: pm10_arc
+            value: !lambda return x;
+            indicator:
+              arc_color: !lambda |-
+                if      (x <= 5)           { return id(arc_color_good); }
+                else if (x > 5 && x < 35)  { return id(arc_color_okay); }
+                else if (x > 35)           { return id(arc_color_bad); }
     temperature:
       name: Temperature
       state_class: "measurement"
@@ -115,17 +125,12 @@ sensor:
               format: "%.0f°F"
               args: [ x * (9.0/5.0) + 32.0 ]
               if_nan: "N/A"
-        #- script.execute:
-            #id: set_arc_gradient
-            #min_value: !lambda return lv_arc_get_min_value(id(temperature_arc));
-            #max_value: !lambda return lv_arc_get_max_value(id(temperature_arc));
-            #current_value: !lambda return x * (9.0/5.0) + 32.0;
         - lvgl.arc.update:
             id: temperature_arc
             value: !lambda return x * (9.0/5.0) + 32.0;
             indicator:
               arc_color: !lambda |-
-                float temperature = 65;
+                float temperature = x * (9.0/5.0) + 32.0;
                 if      (temperature >= 82)                    { return id(arc_color_bad); }
                 else if (temperature < 82 && temperature > 68) { return id(arc_color_good); }
                 else if (temperature <= 68)                    { return id(arc_color_cold); }
@@ -134,30 +139,39 @@ sensor:
       state_class: "measurement"
       id: humidity
       on_value:
-        - lvgl.arc.update:
-            id: humidity_arc
-            value: !lambda return x;
         - lvgl.label.update:
             id: humidity_value
             text:
               format: "%.0f%%"
               args: [ x ]
               if_nan: "N/A"
+        - lvgl.arc.update:
+            id: humidity_arc
+            value: !lambda return x;
+            indicator:
+              arc_color: !lambda |-
+                if (x > 50) { return id(arc_color_bad); }
+                else        { return id(arc_color_good); }
     voc:
       name: VOC
       state_class: "measurement"
       unit_of_measurement: "VOC Index"
       id: voc
       on_value:
-        - lvgl.arc.update:
-            id: voc_arc
-            value: !lambda return x;
         - lvgl.label.update:
             id: voc_value
             text:
               format: "%.0f"
               args: [ x ]
               if_nan: "N/A"
+        - lvgl.arc.update:
+            id: voc_arc
+            value: !lambda return x;
+            indicator:
+              arc_color: !lambda |-
+                if      (x <= 100)           { return id(arc_color_good); }
+                else if (x > 100 && x < 300) { return id(arc_color_okay); }
+                else if (x > 300)            { return id(arc_color_bad); }
     nox:
       name: NOx
       state_class: "measurement"
@@ -169,15 +183,20 @@ sensor:
       unit_of_measurement: "ppm"
       id: co2
       on_value:
-        - lvgl.arc.update:
-            id: co2_arc
-            value: !lambda return x;
         - lvgl.label.update:
             id: co2_value
             text:
               format: "%.0f"
               args: [ x ]
               if_nan: "N/A"
+        - lvgl.arc.update:
+            id: co2_arc
+            value: !lambda return x;
+            indicator:
+              arc_color: !lambda |-
+                if      (x <= 1000)            { return id(arc_color_good); }
+                else if (x > 1000 && x < 2000) { return id(arc_color_okay); }
+                else if (x > 2000)             { return id(arc_color_bad); }
     update_interval: 60s
 
 display:
