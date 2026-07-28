@@ -1,10 +1,7 @@
 esphome:
-  name: "master-bedroom-multi-sensor"
-  friendly_name: Master Bedroom Multi-Sensor
-
   project:
     name: "Kerby-Tech.Multi-Sensor"
-    version: "1.0.5"
+    version: "2.0.0"
 
 esp32:
   variant: esp32c6
