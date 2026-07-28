@@ -61,10 +61,10 @@ time:
               indicator:
                 arc_color: !lambda |-
                   float temp = id(temperature).state * (9.0/5.0) + 32.0;
-                  if      (temp>= 82)                     { return id(arc_color_bad); }
-                  else if (temp < 82 && temperature > 68) { return id(arc_color_good); }
-                  else if (temp <= 68)                    { return id(arc_color_cold); }
-                  else                                    { return id(arc_color_error); }
+                  if      (temp>= 82)              { return id(arc_color_bad); }
+                  else if (temp < 82 && temp > 68) { return id(arc_color_good); }
+                  else if (temp <= 68)             { return id(arc_color_cold); }
+                  else                             { return id(arc_color_error); }
       - seconds: 15
         then:
           - lvgl.arc.update:
