@@ -118,10 +118,10 @@ sensor:
             #current_value: !lambda return x * (9.0/5.0) + 32.0;
         - lvgl.arc.update:
             id: temperature_arc
-            value: !lambda return 85; #x * (9.0/5.0) + 32.0;
+            value: !lambda return x * (9.0/5.0) + 32.0;
             indicator:
               arc_color: !lambda |-
-                float temperature = x * (9.0/5.0) + 32.0;
+                float temperature = 85; #x * (9.0/5.0) + 32.0;
                 if      (temperature >= 82)                    { return id(arc_color_bad); }
                 else if (temperature < 82 && temperature > 68) { return id(arc_color_good); }
                 else if (temperature <= 68)                    { return id(arc_color_bad); }
