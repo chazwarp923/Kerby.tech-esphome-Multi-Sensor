@@ -53,6 +53,12 @@ time:
                 time_format: "%I:%M %p"
       - seconds: 5
         then:
+          - lvgl.label.update:
+              id: temperature_value
+              text: 
+                format: "%.0f°F"
+                args: [ id(temperature).state * (9.0/5.0) + 32.0 ]
+                if_nan: "N/A"
           - lvgl.arc.update:
               id: temperature_arc
               value: !lambda |-
@@ -67,6 +73,12 @@ time:
                   else                             { return id(arc_color_error); }
       - seconds: 15
         then:
+          - lvgl.label.update:
+              id: humidity_value
+              text:
+                format: "%.0f%%"
+                args: [ id(humidity).state ]
+                if_nan: "N/A"
           - lvgl.arc.update:
               id: humidity_arc
               value: !lambda return id(humidity).state;
@@ -77,6 +89,12 @@ time:
                   else        { return id(arc_color_good); };
       - seconds: 25
         then:
+          - lvgl.label.update:
+              id: voc_value
+              text:
+                format: "%.0f"
+                args: [ id(voc).state ]
+                if_nan: "N/A"
           - lvgl.arc.update:
               id: voc_arc
               value: !lambda return id(voc).state;
@@ -89,6 +107,12 @@ time:
                   else                         { return id(arc_color_error); }
       - seconds: 35
         then:
+          - lvgl.label.update:
+              id: co2_value
+              text:
+                format: "%.0f"
+                args: [ id(co2).state ]
+                if_nan: "N/A"
           - lvgl.arc.update:
               id: co2_arc
               value: !lambda return id(co2).state;
@@ -101,6 +125,12 @@ time:
                   else                           { return id(arc_color_error); }
       - seconds: 45
         then:
+          - lvgl.label.update:
+              id: pm25_value
+              text:
+                format: "%.0f"
+                args: [ id(pm_2_5).state ]
+                if_nan: "N/A"
           - lvgl.arc.update:
               id: pm25_arc
               value: !lambda return id(pm_2_5).state;
@@ -113,6 +143,12 @@ time:
                   else                       { return id(arc_color_error); }
       - seconds: 55
         then:
+          - lvgl.label.update:
+              id: pm10_value
+              text:
+                format: "%.0f"
+                args: [ id(pm_10_0).state ]
+                if_nan: "N/A"
           - lvgl.arc.update:
               id: pm10_arc
               value: !lambda return id(pm_10_0).state;
@@ -147,13 +183,7 @@ sensor:
       state_class: "measurement"
       unit_of_measurement: "μg/m³"
       id: pm_2_5
-      on_value:
-        - lvgl.label.update:
-            id: pm25_value
-            text:
-              format: "%.0f"
-              args: [ x ]
-              if_nan: "N/A"
+        
     pm_4_0:
       name: PM 4µm
       state_class: "measurement"
@@ -164,47 +194,19 @@ sensor:
       state_class: "measurement"
       unit_of_measurement: "μg/m³"
       id: pm_10_0
-      on_value:
-        - lvgl.label.update:
-            id: pm10_value
-            text:
-              format: "%.0f"
-              args: [ x ]
-              if_nan: "N/A"
     temperature:
       name: Temperature
       state_class: "measurement"
       id: temperature
-      on_value:
-        - lvgl.label.update:
-            id: temperature_value
-            text: 
-              format: "%.0f°F"
-              args: [ x * (9.0/5.0) + 32.0 ]
-              if_nan: "N/A"
     humidity:
       name: Humidity
       state_class: "measurement"
       id: humidity
-      on_value:
-        - lvgl.label.update:
-            id: humidity_value
-            text:
-              format: "%.0f%%"
-              args: [ x ]
-              if_nan: "N/A"
     voc:
       name: VOC
       state_class: "measurement"
       unit_of_measurement: "VOC Index"
       id: voc
-      on_value:
-        - lvgl.label.update:
-            id: voc_value
-            text:
-              format: "%.0f"
-              args: [ x ]
-              if_nan: "N/A"
     nox:
       name: NOx
       state_class: "measurement"
@@ -215,13 +217,6 @@ sensor:
       state_class: "measurement"
       unit_of_measurement: "ppm"
       id: co2
-      on_value:
-        - lvgl.label.update:
-            id: co2_value
-            text:
-              format: "%.0f"
-              args: [ x ]
-              if_nan: "N/A"
     update_interval: 60s
 
 display:
