@@ -1,7 +1,7 @@
 esphome:
   project:
     name: "Kerby-Tech.Multi-Sensor"
-    version: "2.0.0"
+    version: "2.0.1"
 
 esp32:
   variant: esp32c6
@@ -236,7 +236,7 @@ display:
     dimensions:
       height: 320
       width: 170
-      offset_width: 34
+      offset_width: 36
     invert_colors: true
     update_interval: never
 
