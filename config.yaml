@@ -203,12 +203,12 @@ sensor:
       name: Humidity
       state_class: "measurement"
       id: humidity
-    voc:
+    voc_index:
       name: VOC
       state_class: "measurement"
       unit_of_measurement: "VOC Index"
       id: voc
-    nox:
+    nox_index:
       name: NOx
       state_class: "measurement"
       unit_of_measurement: "NOx Index"
